@@ -1,26 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @import "tailwindcss";
 
+/* ── Darkish Theme with Secondary Color #8489B7 ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Fonts from Inspector */
+  --font-heading:   'Onest', sans-serif;
+  --font-body:      system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono:      'JetBrains Mono', monospace;
+
+  /* Text Colors */
+  --text-primary:   #F9F7EE;  /* Primary heading color */
+  --text-secondary: #8489B7;  /* Secondary color */
+  --text-muted:     #9A99B8;
+
+  /* Surfaces & Backgrounds */
+  --bg-page:        #0B1726;
+  --bg-surface:     #122338;
+  --bg-surface-elevated: #182C44;
+  --bg-subtle:      #1C334E;
+
+  /* Primary Accent Colors (#8489B7) */
+  --accent-teal:        #8489B7;
+  --accent-teal-hover:  #989CD0;
+  --accent-teal-light:  rgba(132, 137, 183, 0.18);
+  --accent-teal-dark:   #0B1726;
+
+  --accent-green:   #10B981;
+  --accent-green-bg: rgba(16,185,129,0.12);
+
+  /* Yellow Notice Banner Colors */
+  --yellow-notice-bg:     #FEF08A;
+  --yellow-notice-text:   #713F12;
+  --yellow-notice-border: #FDE047;
+
+  /* Borders */
+  --border:         rgba(255,255,255,0.1);
+  --border-strong:  rgba(132, 137, 183, 0.3);
+  --border-focus:   #8489B7;
+
+  /* Radii & Shadows */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Base Reset ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Headings ──────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: 1.65rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-secondary); /* #8489B7 */
+  font-size: 16px;
+}
+
+/* ── Tax Card ──────────────────────────────────────────────── */
+.tax-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.tax-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: #8489B7;
+  color: #FFFFFF;
+  border: 1px solid #8489B7;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary:hover {
+  background: #989CD0;
+  border-color: #989CD0;
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--bg-surface-elevated);
+  color: #8489B7;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  background: var(--bg-subtle);
+  color: #FFFFFF;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+.btn-ghost:hover {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+/* ── Form Inputs ───────────────────────────────────────────── */
+.input-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.input-field {
+  width: 100%;
+  background: #0E1D2F;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input-field::placeholder { color: var(--text-muted); }
+.input-field:focus {
+  border-color: #8489B7;
+  box-shadow: 0 0 0 3px rgba(132, 137, 183, 0.25);
+}
+.input-field.error {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+select.input-field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%238489B7' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+  padding-right: 36px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.currency-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.currency-prefix {
+  position: absolute;
+  left: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+.currency-input-wrap .input-field {
+  padding-left: 28px;
+}
+
+/* ── Badges ────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-family: var(--font-heading);
+}
+.badge-confirmed {
+  background: rgba(132, 137, 183, 0.18);
+  color: #8489B7;
+  border: 1px solid rgba(132, 137, 183, 0.35);
+}
+.badge-flagged {
+  background: rgba(245,158,11,0.15);
+  color: #F59E0B;
+  border: 1px solid rgba(245,158,11,0.3);
+}
+
+/* ── Yellow Notice Banner ──────────────────────────────────── */
+.yellow-notice-banner {
+  background: var(--yellow-notice-bg);
+  color: var(--yellow-notice-text);
+  border-bottom: 1px solid var(--yellow-notice-border);
+  padding: 10px 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* ── Brand Header Bar ──────────────────────────────────────── */
+.brand-header-bar {
+  background: #08121E;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 24px;
+}
+
+/* ── Routes Navigation Bar ─────────────────────────────────── */
+.routes-navbar {
+  background: #0D1F33;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* ── Chat Bubbles ──────────────────────────────────────────── */
+.chat-bubble-user {
+  background: #8489B7;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: var(--radius-md) var(--radius-md) 2px var(--radius-md);
+  padding: 12px 18px;
+  max-width: 78%;
+  margin-left: auto;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.chat-bubble-assistant {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 2px;
+  padding: 14px 18px;
+  max-width: 82%;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+/* ── Range Slider ──────────────────────────────────────────── */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 100px;
+  background: #1C334E;
+  outline: none;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #8489B7;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  transition: transform 0.15s ease;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* ── Spinner ───────────────────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border-strong);
+  border-top-color: #8489B7;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* ── Rule ID Code ──────────────────────────────────────────── */
+.rule-id-code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
